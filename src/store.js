@@ -1,9 +1,9 @@
 import { createStore } from "redux";
-import rootReducer from './redux/reducer';
+import todoReducer from './redux/reducer';
 
 // Load the initial state from local storage if it exists
 const initialState = JSON.parse( localStorage.getItem('reduxState')) || []
-const store = createStore(rootReducer, initialState)
+const store = createStore(todoReducer, initialState)
 
 //subscribe changes in the redux store an update local storage
 store.subscribe(() => {
