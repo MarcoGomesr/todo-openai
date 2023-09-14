@@ -1,25 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTodo, removeTodo } from './redux/actions';
 
 
 export default function TodoApp() {
-  const [todos, setTodos] = useState( () => {
-    return  JSON.parse(localStorage.getItem('todos')) || []
-  })
+  const dispatch = useDispatch()
+  const todos = useSelector( (state) => state.todos)
   const [newTodo, setNewTodo] = useState('')
 
-  useEffect( () => {
-    localStorage.setItem('todos', JSON.stringify(todos) )
-  }, [todos])
 
 const handleAddTodo = () =>{
   if ( newTodo.trim() === "") return
-  setTodos([...todos, newTodo])
+  dispatch( addTodo(newTodo))
   setNewTodo('')
 }
 
 const handleRemoveTodo = ( index) => {
-  const updateTodos = todos.filter( (_, i) => i !== index)
-  setTodos(updateTodos)
+  dispatch(removeTodo(index))
 }
 
   return (
