@@ -1,20 +1,25 @@
-import { useState } from 'react';
-import { useTodoContext } from './context/Todo';
+import { useEffect, useState } from 'react';
 
 
 export default function TodoApp() {
-  const { state, dispatch } = useTodoContext()
+  const [todos, setTodos] = useState( () => {
+    return  JSON.parse(localStorage.getItem('todos')) || []
+  })
   const [newTodo, setNewTodo] = useState('')
+
+  useEffect( () => {
+    localStorage.setItem('todos', JSON.stringify(todos) )
+  }, [todos])
 
 const handleAddTodo = () =>{
   if ( newTodo.trim() === "") return
-  // setTodos([...todos, newTodo])
-  dispatch({type: "ADD_TODO", payload: newTodo})
+  setTodos([...todos, newTodo])
   setNewTodo('')
 }
 
 const handleRemoveTodo = ( index) => {
-  dispatch({type: "REMOVE_TODO", payload: index})
+  const updateTodos = todos.filter( (_, i) => i !== index)
+  setTodos(updateTodos)
 }
 
   return (
@@ -24,7 +29,7 @@ const handleRemoveTodo = ( index) => {
       <button onClick={handleAddTodo}>Add</button>
 
       <ul>
-        {state.todos.map( (todo, index) => (
+        {todos.map( (todo, index) => (
           <li key={index}>
             {todo}
             <button onClick={() => handleRemoveTodo(index)} >Remove</button>
