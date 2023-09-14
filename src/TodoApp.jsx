@@ -26,7 +26,7 @@ const handleRemoveTodo = ( index) => {
       <button onClick={handleAddTodo}>Add</button>
 
       <ul>
-        {todos.map( (todo, index) => (
+        {todos?.map( (todo, index) => (
           <li key={index}>
             {todo}
             <button onClick={() => handleRemoveTodo(index)} >Remove</button>
