@@ -1,5 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { ADD_TODO, ADD_TODO_ASYNC, REMOVE_TODO } from './types'
+import { ADD_TODO, ADD_TODO_ASYNC, REMOVE_TODO, REMOVE_TODO_ASYNC } from './types'
 
 function* addTodoAsync (action) {
   yield put({ type: ADD_TODO, payload: action.payload})
