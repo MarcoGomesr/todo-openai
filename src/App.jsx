@@ -1,23 +1,23 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_TODO_ASYNC, REMOVE_TODO_ASYNC } from './types';
-
+import { addTodo, removeTodo } from './actions';
 
 export default function App() {
   const dispatch = useDispatch()
-  const todos = useSelector( (state) => state.todos)
+  const { todos } = useSelector( (state) => state.todos) 
+
   const [newTodo, setNewTodo] = useState('')
   
 
 
 const handleAddTodo = () =>{
   if ( newTodo.trim() === "") return
-  dispatch({type: ADD_TODO_ASYNC, payload: newTodo})
+  dispatch( addTodo(newTodo))
   setNewTodo('')
 }
 
 const handleRemoveTodo = ( index) => {
-  dispatch({type: REMOVE_TODO_ASYNC, payload: index})
+  dispatch(removeTodo(index))
 }
 
   return (
